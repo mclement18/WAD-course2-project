@@ -123,7 +123,15 @@ const highlightSelectedFilter = function() {
 
 // Function that perform the filtering of the hats by color
 const filterHatsByColor = function() {
-  
+  // Hide all hats
+  document.querySelectorAll("#products .accessory").forEach(accessory => {
+    accessory.style.display = "none";
+  });
+  // Select only hats that have the filter button textContent color as class name
+  // And unhide each of them
+  document.querySelectorAll(`#products .accessory.${this.textContent.toLowerCase()}`).forEach(accessory => {
+    accessory.style.display = "";
+  });
 };
 
 // Bind highlightSelectedFilter() function to filter buttons
