@@ -16,45 +16,45 @@ let blueBaseballCap = {
 // Check if the method works
 console.log(blueBaseballCap.toString());
 
-// Create a Hat prototype
-function Hat(name, price, color, imageHref) {
+// Create a Hat prototype now Accessory
+function Accessory(name, price, color, imageHref) {
   this.name = name;
   this.price = price;
   this.color = color;
   this.imageHref = imageHref;
 }
 
-// Hat prototype methods
-// Method to return hat info as organised strings
-Hat.prototype.toString = function() {
+// Accessory prototype methods
+// Method to return accessory info as organised strings
+Accessory.prototype.toString = function() {
   return `${this.name}, color ${this.color}, price: ${this.price}, image: ${this.imageHref}`
 };
 
 // define an array of Hats
 let hats = [
-  new Hat("Baseball cap", 11.99, "red", "./assets/images/red/hats/1.png"),
-  new Hat("Baseball cap", 11.99, "blue", "./assets/images/blue/hats/1.png"),
-  new Hat("Baseball cap", 11.99, "yellow", "./assets/images/yellow/hats/1.png"),
-  new Hat("Baseball cap", 11.99, "green", "./assets/images/green/hats/1.png"),
-  new Hat("Beanie", 17.99, "red", "./assets/images/red/hats/2.png"),
-  new Hat("Beanie", 17.99, "blue", "./assets/images/blue/hats/2.png"),
-  new Hat("Beanie", 17.99, "green", "./assets/images/green/hats/2.png"),
-  new Hat("Straw hat", 10.99, "yellow", "./assets/images/yellow/hats/3.png"),
-  new Hat("Straw hat", 10.99, "blue", "./assets/images/blue/hats/3.png"),
-  new Hat("Trilby", 10.99, "red", "./assets/images/red/hats/4.png"),
-  new Hat("Trilby", 10.99, "blue", "./assets/images/blue/hats/4.png"),
-  new Hat("Trilby", 10.99, "yellow", "./assets/images/yellow/hats/4.png")
+  new Accessory("Baseball cap", 11.99, "red", "./assets/images/red/hats/1.png"),
+  new Accessory("Baseball cap", 11.99, "blue", "./assets/images/blue/hats/1.png"),
+  new Accessory("Baseball cap", 11.99, "yellow", "./assets/images/yellow/hats/1.png"),
+  new Accessory("Baseball cap", 11.99, "green", "./assets/images/green/hats/1.png"),
+  new Accessory("Beanie", 17.99, "red", "./assets/images/red/hats/2.png"),
+  new Accessory("Beanie", 17.99, "blue", "./assets/images/blue/hats/2.png"),
+  new Accessory("Beanie", 17.99, "green", "./assets/images/green/hats/2.png"),
+  new Accessory("Straw hat", 10.99, "yellow", "./assets/images/yellow/hats/3.png"),
+  new Accessory("Straw hat", 10.99, "blue", "./assets/images/blue/hats/3.png"),
+  new Accessory("Trilby", 10.99, "red", "./assets/images/red/hats/4.png"),
+  new Accessory("Trilby", 10.99, "blue", "./assets/images/blue/hats/4.png"),
+  new Accessory("Trilby", 10.99, "yellow", "./assets/images/yellow/hats/4.png")
 ];
 
-// Function to display a hat object as a card on the product.html page
-const displayHat = function(hat) {
+// Function to display an Accessory object as a card on the product.html page
+const displayAccessory = function(accessory) {
   // Create first the HTML component piece by piece from the inner part
   let cardTitle = document.createElement("h5");
   cardTitle.className = "card-title";
-  cardTitle.textContent = hat.name;
+  cardTitle.textContent = accessory.name;
 
   let itemColor = document.createElement("em");
-  itemColor.textContent = hat.color;
+  itemColor.textContent = accessory.color;
 
   let cardText = document.createElement("p");
   cardText.className = "card-text";
@@ -73,12 +73,12 @@ const displayHat = function(hat) {
 
   let cardImage = document.createElement("img");
   cardImage.className = "card-img-top";
-  cardImage.src = hat.imageHref;
-  cardImage.alt = `Image of a ${hat.color} ${hat.name}`;
+  cardImage.src = accessory.imageHref;
+  cardImage.alt = `Image of a ${accessory.color} ${accessory.name}`;
 
   let priceTag = document.createElement("div");
   priceTag.className = "currency btn btn-light disabled";
-  priceTag.textContent = hat.price;
+  priceTag.textContent = accessory.price;
 
   let card = document.createElement("div");
   card.className = "card my-3";
@@ -87,7 +87,7 @@ const displayHat = function(hat) {
   card.appendChild(cardBody);
 
   let cardContainer = document.createElement("div");
-  cardContainer.className = `accessory col-sm-4 ${hat.color}`;
+  cardContainer.className = `accessory col-sm-4 ${accessory.color}`;
   cardContainer.appendChild(card);
 
   // Get the HTML element that contains the products
@@ -98,7 +98,7 @@ const displayHat = function(hat) {
 
 // Render all the hats from hats array
 hats.forEach(hat => {
-  displayHat(hat);
+  displayAccessory(hat);
 });
 
 // /************************************
@@ -120,22 +120,21 @@ const highlightSelectedFilter = function() {
   this.classList.add("active");
 };
 
-
-// Function that perform the filtering of the hats by color
-const filterHatsByColor = function() {
+// Function that perform the filtering of the accessories by color
+const filterAccessoriesByColor = function() {
   // Check whether the sleceted filter is all
-  // If true display all hats
-  // Otherwise filter the hats
+  // If true display all accessories
+  // Otherwise filter the accessories
   if (this.textContent.toLowerCase() === "all") {
     document.querySelectorAll("#products .accessory").forEach(accessory => {
       accessory.style.display = "";
     });
   } else {
-    // Hide all hats
+    // Hide all accessories
     document.querySelectorAll("#products .accessory").forEach(accessory => {
       accessory.style.display = "none";
     });
-    // Select only hats that have the filter button textContent color as class name
+    // Select only accessories that have the filter button textContent color as class name
     // And unhide each of them
     document.querySelectorAll(`#products .accessory.${this.textContent.toLowerCase()}`).forEach(accessory => {
       accessory.style.display = "";
@@ -147,5 +146,5 @@ const filterHatsByColor = function() {
 // The function is runned upon click
 document.querySelectorAll("#filters .btn").forEach(filter => {
   filter.addEventListener("click", highlightSelectedFilter);
-  filter.addEventListener("click", filterHatsByColor);
+  filter.addEventListener("click", filterAccessoriesByColor);
 });
