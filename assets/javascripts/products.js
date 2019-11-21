@@ -29,3 +29,19 @@ function Hat(name, price, color, imageHref) {
 Hat.prototype.toString = function() {
   return `${this.name}, color ${this.color}, price: ${this.price}, image: ${this.imageHref}`
 };
+
+// define an array of Hats
+let hats = [
+  new Hat("Baseball cap", 11.99, "red", "./assets/images/red/hats/1.png"),
+  new Hat("Baseball cap", 11.99, "blue", "./assets/images/blue/hats/1.png"),
+  new Hat("Baseball cap", 11.99, "yellow", "./assets/images/yellow/hats/1.png"),
+  new Hat("Baseball cap", 11.99, "green", "./assets/images/green/hats/1.png"),
+  new Hat("Beanie", 17.99, "red", "./assets/images/red/hats/2.png"),
+  new Hat("Beanie", 17.99, "blue", "./assets/images/blue/hats/2.png"),
+  new Hat("Beanie", 17.99, "green", "./assets/images/green/hats/2.png"),
+  new Hat("Straw hat", 10.99, "yellow", "./assets/images/yellow/hats/3.png"),
+  new Hat("Straw hat", 10.99, "blue", "./assets/images/blue/hats/3.png"),
+  new Hat("Trilby", 10.99, "red", "./assets/images/red/hats/4.png"),
+  new Hat("Trilby", 10.99, "blue", "./assets/images/blue/hats/4.png"),
+  new Hat("Trilby", 10.99, "yellow", "./assets/images/yellow/hats/4.png")
+];
