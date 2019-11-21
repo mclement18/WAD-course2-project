@@ -194,5 +194,5 @@ document.querySelector(".navbar .nav-link:first-child").addEventListener("click"
 
 // Function to add accessory to the wishlist
 const addToWishlist = function(accessory) {
-  
+  localStorage.setItem("accessory1", JSON.stringify(accessory));
 };
