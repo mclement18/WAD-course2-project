@@ -193,6 +193,20 @@ document.querySelector(".navbar .nav-link:first-child").addEventListener("click"
 //  ************************************/
 
 // Function to add accessory to the wishlist
+// Save maximum 3 items
 const addToWishlist = function(accessory) {
-  localStorage.setItem("accessory1", JSON.stringify(accessory));
+  switch (localStorage.length) {
+    case 3:
+      alert("Maximal number of saved items reached! You can only save 3 accessories in the wishlist.");
+      break;
+    case 2:
+      localStorage.setItem("accessory3", JSON.stringify(accessory));
+      break;
+    case 1:
+      localStorage.setItem("accessory2", JSON.stringify(accessory));
+      break;
+    case 0:
+      localStorage.setItem("accessory1", JSON.stringify(accessory));
+      break;
+  }
 };
