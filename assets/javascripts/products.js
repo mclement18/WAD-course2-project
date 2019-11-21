@@ -87,7 +87,7 @@ const displayHat = function(hat) {
   card.appendChild(cardBody);
 
   let cardContainer = document.createElement("div");
-  cardContainer.className = "accessory col-sm-4";
+  cardContainer.className = `accessory col-sm-4 ${hat.color}`;
   cardContainer.appendChild(card);
 
   // Get the HTML element that contains the products
