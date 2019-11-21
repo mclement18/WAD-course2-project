@@ -1,5 +1,5 @@
 // /************************************
-//  * Hats
+//  * Hats tasks section
 //  ************************************/
 
 // Defining a simple hat object with a .toString() method
@@ -99,4 +99,28 @@ const displayHat = function(hat) {
 // Render all the hats from hats array
 hats.forEach(hat => {
   displayHat(hat);
+});
+
+// /************************************
+//  * Filter by color tasks section
+//  ************************************/
+
+// Make filter buttons interactive
+const highlightSelectedFilter = function() {
+  
+  // Remove active class to all filter buttons
+  document.querySelectorAll("#filters .btn").forEach(filterButton => {
+    if (filterButton.classList.contains("active")) {
+      filterButton.classList.remove("active");
+    }
+  });
+
+  // Add active class to clicked filter button
+  this.classList.add("active");
+};
+
+// Bind highlightSelectedFilter() function to filter buttons
+// The function is runned upon click
+document.querySelectorAll("#filters .btn").forEach(filter => {
+  filter.addEventListener("click", highlightSelectedFilter);
 });
