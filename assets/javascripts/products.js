@@ -97,9 +97,7 @@ const displayAccessory = function(accessory) {
 };
 
 // Render all the hats from hats array
-hats.forEach(hat => {
-  displayAccessory(hat);
-});
+hats.forEach(hat => displayAccessory(hat));
 
 // /************************************
 //  * Filter by color tasks section
@@ -117,6 +115,7 @@ const highlightSelectedFilter = function() {
   });
 
   // Add active class to clicked filter button
+  console.log(this);
   this.classList.add("active");
 };
 
@@ -147,4 +146,31 @@ const filterAccessoriesByColor = function() {
 document.querySelectorAll("#filters .btn").forEach(filter => {
   filter.addEventListener("click", highlightSelectedFilter);
   filter.addEventListener("click", filterAccessoriesByColor);
+});
+
+// /************************************
+//  * Socks and sunglasses tasks section
+//  ************************************/
+
+// Function to load the remotly stored accessories in JSON format
+// And remove old displayed accessories
+const loadRemoteAccessories = function() {
+  fetch(`./${this.textContent.toLowerCase()}.json`)
+    // Parse response
+    .then(response => response.json())
+    .then(newAccessories => {
+      // Remove all old accessories
+      document.querySelectorAll("#products .accessory").forEach(oldAccessory => oldAccessory.remove());
+      // Display the new remote ones
+      newAccessories.forEach(newAccessory => displayAccessory(newAccessory));
+      // Highlight the All filter button
+      highlightSelectedFilter.bind(document.querySelector("#filters .btn:first-child"))();
+    });
+};
+
+// Binding loadRemoteAccessories to socks and sunglasses links
+document.querySelectorAll(".navbar .nav-link").forEach(link => {
+  if (link.textContent.toLowerCase() !== "hats") {
+    link.addEventListener("click", loadRemoteAccessories);
+  }
 });
