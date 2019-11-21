@@ -94,7 +94,7 @@ const displayHat = function(hat) {
   // And append the new product to it
   let productsList = document.getElementById("products");
   productsList.appendChild(cardContainer);
-}
+};
 
 // Render all the hats from hats array
 hats.forEach(hat => {
@@ -106,6 +106,7 @@ hats.forEach(hat => {
 //  ************************************/
 
 // Make filter buttons interactive
+// Function that highlight the clicked filter
 const highlightSelectedFilter = function() {
   
   // Remove active class to all filter buttons
@@ -119,8 +120,15 @@ const highlightSelectedFilter = function() {
   this.classList.add("active");
 };
 
+
+// Function that perform the filtering of the hats by color
+const filterHatsByColor = function() {
+  
+};
+
 // Bind highlightSelectedFilter() function to filter buttons
 // The function is runned upon click
 document.querySelectorAll("#filters .btn").forEach(filter => {
   filter.addEventListener("click", highlightSelectedFilter);
+  filter.addEventListener("click", filterHatsByColor);
 });
