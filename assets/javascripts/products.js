@@ -194,5 +194,15 @@ document.querySelector(".navbar .nav-link:first-child").addEventListener("click"
 
 // Function to add accessory to the wishlist
 const addToWishlist = function(accessory) {
-  localStorage.setItem("accessory1", JSON.stringify(accessory));
+  if (localStorage.length > 2) {
+    alert("You reached the maximal number of items in your wishlist.");
+  } else {
+    if (!localStorage.getItem("accessory1")) {
+      localStorage.setItem("accessory1", JSON.stringify(accessory));
+    } else if (!localStorage.getItem("accessory2")) {
+      localStorage.setItem("accessory2", JSON.stringify(accessory));
+    } else if (!localStorage.getItem("accessory3")) {
+      localStorage.setItem("accessory3", JSON.stringify(accessory));
+    }
+  }
 };
