@@ -115,7 +115,6 @@ const highlightSelectedFilter = function() {
   });
 
   // Add active class to clicked filter button
-  console.log(this);
   this.classList.add("active");
 };
 
@@ -174,3 +173,16 @@ document.querySelectorAll(".navbar .nav-link").forEach(link => {
     link.addEventListener("click", loadRemoteAccessories);
   }
 });
+
+// Function to reload hats content
+const reloadHats = function() {
+  // Remove all old accessories
+  document.querySelectorAll("#products .accessory").forEach(oldAccessory => oldAccessory.remove());
+  // Display hats
+  hats.forEach(hat => displayAccessory(hat));
+  // Highlight the All filter button
+  highlightSelectedFilter.bind(document.querySelector("#filters .btn:first-child"))();
+};
+
+// Bind reloadHats function to the Hats nav link
+document.querySelector(".navbar .nav-link:first-child").addEventListener("click", reloadHats);
