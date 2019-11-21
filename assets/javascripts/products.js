@@ -64,7 +64,8 @@ const displayAccessory = function(accessory) {
   let cardButton = document.createElement("button");
   cardButton.className = "btn btn-outline-primary";
   cardButton.textContent = "Add to wishlist!";
-
+  cardButton.addEventListener("click", () => addToWishlist(accessory));
+  
   let cardBody = document.createElement("div");
   cardBody.className = "card-body text-center";
   cardBody.appendChild(cardTitle);
@@ -186,3 +187,12 @@ const reloadHats = function() {
 
 // Bind reloadHats function to the Hats nav link
 document.querySelector(".navbar .nav-link:first-child").addEventListener("click", reloadHats);
+
+// /************************************
+//  * Socks and sunglasses tasks section
+//  ************************************/
+
+// Function to add accessory to the wishlist
+const addToWishlist = function(accessory) {
+  
+};
