@@ -37,6 +37,7 @@ const renderWishlistItem = function(item) {
   let cardButton = document.createElement("button");
   cardButton.className = "btn btn-outline-danger";
   cardButton.textContent = "Remove";
+  cardButton.addEventListener("click", () => removeFromWishlist(item.storageKey, cardContainer));
   
   let cardBody = document.createElement("div");
   cardBody.className = "card-body text-center";
@@ -94,3 +95,19 @@ const displayWishlist = function() {
 
 // Call the displayWishlist function
 displayWishlist();
+
+// Function that remove item from wishlist
+// Remove from the page and localStorage
+const removeFromWishlist = function(key, htmlComponent) {
+  // If item really exist, remove it from localStorage
+  console.log(key);
+  if (localStorage.getItem(key)) {
+    localStorage.removeItem(key);
+  }
+  // Remove corresponding HTML component
+  htmlComponent.remove();
+  // If no more items in wishlist display warning message
+  if (localStorage.length === 0) {
+    noWishlistFound();
+  }
+};
