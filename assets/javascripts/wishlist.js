@@ -2,6 +2,33 @@
 //  * The wishlist tasks section
 //  ************************************/
 
+// Calculate total price of wishlist
+// Define variable for the total price
+// Not asked but it is written on the page that the total price will be calculated
+let totalPrice = 0;
+
+// Function taht render the total price
+const renderTotalPrice = function() {
+  let total = document.createElement("span");
+  total.textContent = totalPrice.toFixed(2);
+
+  let priceInfo = document.createElement("p");
+  priceInfo.id = "total-price";
+  priceInfo.className = "text-center";
+  priceInfo.appendChild(document.createTextNode("Total price: €"));
+  priceInfo.appendChild(total);
+  
+  let headerContainer = document.querySelector("h2").parentElement;
+  headerContainer.appendChild(priceInfo);
+};
+
+// Function that update total price
+const updateTotalPrice = function(amountToRemove) {
+  totalPrice -= amountToRemove;
+  document.querySelector("#total-price span").textContent = totalPrice.toFixed(2);
+};
+
+
 // Function that retrieve wishlist from localStorage
 const getWishlist = function() {
   if (localStorage.length > 0) {
@@ -37,7 +64,7 @@ const renderWishlistItem = function(item) {
   let cardButton = document.createElement("button");
   cardButton.className = "btn btn-outline-danger";
   cardButton.textContent = "Remove";
-  cardButton.addEventListener("click", () => removeFromWishlist(item.storageKey, cardContainer));
+  cardButton.addEventListener("click", () => removeFromWishlist(item.storageKey, cardContainer, accessory.price));
   
   let cardBody = document.createElement("div");
   cardBody.className = "card-body text-center";
@@ -53,6 +80,8 @@ const renderWishlistItem = function(item) {
   let priceTag = document.createElement("div");
   priceTag.className = "currency btn btn-light disabled";
   priceTag.textContent = accessory.price;
+  // Add the price to totalPrice
+  totalPrice += accessory.price;
 
   let card = document.createElement("div");
   card.className = "card my-3";
@@ -74,7 +103,7 @@ const renderWishlistItem = function(item) {
 const noWishlistFound = function() {
   // Create warning message
   let warningMessage = document.createElement("p");
-  warningMessage.textContent = "No saved item in your wishlist. Go add some on the accessories page!";
+  warningMessage.textContent = "No saved item in your wishlist. Go on the accessories page to add some!";
   warningMessage.style.color = "red";
   // Render warning messeage
   let productsList = document.getElementById("products");
@@ -88,6 +117,7 @@ const displayWishlist = function() {
   const wishlist = getWishlist();
   if (wishlist) {
     wishlist.forEach(item => renderWishlistItem(item));
+    renderTotalPrice();
   } else {
     noWishlistFound();
   }
@@ -98,16 +128,21 @@ displayWishlist();
 
 // Function that remove item from wishlist
 // Remove from the page and localStorage
-const removeFromWishlist = function(key, htmlComponent) {
+const removeFromWishlist = function(key, htmlComponent, price) {
   // If item really exist, remove it from localStorage
-  console.log(key);
   if (localStorage.getItem(key)) {
     localStorage.removeItem(key);
   }
   // Remove corresponding HTML component
   htmlComponent.remove();
   // If no more items in wishlist display warning message
+  // And remove total price
+  // Otherwise update total price
   if (localStorage.length === 0) {
     noWishlistFound();
+    // Remove total price
+    document.getElementById("total-price").remove();
+  } else {
+    updateTotalPrice(price);
   }
 };
