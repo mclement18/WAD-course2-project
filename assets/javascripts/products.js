@@ -27,7 +27,7 @@ function Accessory(name, price, color, imageHref) {
 // Accessory prototype methods
 // Method to return accessory info as organised strings
 Accessory.prototype.toString = function() {
-  return `${this.name}, color ${this.color}, price: ${this.price}, image: ${this.imageHref}`
+  return `${this.name}, color ${this.color}, price: ${this.price}, image: ${this.imageHref}`;
 };
 
 // define an array of Hats
@@ -49,52 +49,51 @@ let hats = [
 // Function to display an Accessory object as a card on the product.html page
 const displayAccessory = function(accessory) {
   // Create first the HTML component piece by piece from the inner part
-  let cardTitle = document.createElement("h5");
+  const cardTitle = document.createElement("h5");
   cardTitle.className = "card-title";
   cardTitle.textContent = accessory.name;
 
-  let itemColor = document.createElement("em");
+  const itemColor = document.createElement("em");
   itemColor.textContent = accessory.color;
 
-  let cardText = document.createElement("p");
+  const cardText = document.createElement("p");
   cardText.className = "card-text";
   cardText.appendChild(document.createTextNode("Color: "));
   cardText.appendChild(itemColor);
 
-  let cardButton = document.createElement("button");
+  const cardButton = document.createElement("button");
   cardButton.className = "btn btn-outline-primary";
   cardButton.textContent = "Add to wishlist!";
   cardButton.addEventListener("click", () => addToWishlist(accessory));
   
-  let cardBody = document.createElement("div");
+  const cardBody = document.createElement("div");
   cardBody.className = "card-body text-center";
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardText);
   cardBody.appendChild(cardButton);
 
-  let cardImage = document.createElement("img");
+  const cardImage = document.createElement("img");
   cardImage.className = "card-img-top";
   cardImage.src = accessory.imageHref;
-  cardImage.alt = `Image of a ${accessory.color} ${accessory.name}`;
+  cardImage.alt = `Image of ${accessory.color} ${accessory.name}`;
 
-  let priceTag = document.createElement("div");
+  const priceTag = document.createElement("div");
   priceTag.className = "currency btn btn-light disabled";
   priceTag.textContent = accessory.price;
 
-  let card = document.createElement("div");
+  const card = document.createElement("div");
   card.className = "card my-3";
   card.appendChild(priceTag);
   card.appendChild(cardImage);
   card.appendChild(cardBody);
 
-  let cardContainer = document.createElement("div");
+  const cardContainer = document.createElement("div");
   cardContainer.className = `accessory col-sm-4 ${accessory.color}`;
   cardContainer.appendChild(card);
 
   // Get the HTML element that contains the products
   // And append the new product to it
-  let productsList = document.getElementById("products");
-  productsList.appendChild(cardContainer);
+  document.getElementById("products").appendChild(cardContainer);
 };
 
 // Render all the hats from hats array
@@ -107,14 +106,12 @@ hats.forEach(hat => displayAccessory(hat));
 // Make filter buttons interactive
 // Function that highlight the clicked filter
 const highlightSelectedFilter = function() {
-  
   // Remove active class to all filter buttons
   document.querySelectorAll("#filters .btn").forEach(filterButton => {
     if (filterButton.classList.contains("active")) {
       filterButton.classList.remove("active");
     }
   });
-
   // Add active class to clicked filter button
   this.classList.add("active");
 };
@@ -125,19 +122,16 @@ const filterAccessoriesByColor = function() {
   // If true display all accessories
   // Otherwise filter the accessories
   if (this.textContent.toLowerCase() === "all") {
-    document.querySelectorAll("#products .accessory").forEach(accessory => {
-      accessory.style.display = "";
-    });
+    document.querySelectorAll("#products .accessory")
+      .forEach(accessory => accessory.style.display = "");
   } else {
     // Hide all accessories
-    document.querySelectorAll("#products .accessory").forEach(accessory => {
-      accessory.style.display = "none";
-    });
+    document.querySelectorAll("#products .accessory")
+      .forEach(accessory => accessory.style.display = "none");
     // Select only accessories that have the filter button textContent color as class name
     // And unhide each of them
-    document.querySelectorAll(`#products .accessory.${this.textContent.toLowerCase()}`).forEach(accessory => {
-      accessory.style.display = "";
-    });
+    document.querySelectorAll(`#products .accessory.${this.textContent.toLowerCase()}`)
+      .forEach(accessory => accessory.style.display = "");
   }
 };
 
@@ -198,12 +192,13 @@ const addToWishlist = function(accessory) {
   if (localStorage.length > 2) {
     alert("You reached the maximal number of items in your wishlist.");
   } else {
+    const accessoryJSON = JSON.stringify(accessory);
     if (!localStorage.getItem("accessory1")) {
-      localStorage.setItem("accessory1", JSON.stringify(accessory));
+      localStorage.setItem("accessory1", accessoryJSON);
     } else if (!localStorage.getItem("accessory2")) {
-      localStorage.setItem("accessory2", JSON.stringify(accessory));
+      localStorage.setItem("accessory2", accessoryJSON);
     } else if (!localStorage.getItem("accessory3")) {
-      localStorage.setItem("accessory3", JSON.stringify(accessory));
+      localStorage.setItem("accessory3", accessoryJSON);
     }
   }
 };

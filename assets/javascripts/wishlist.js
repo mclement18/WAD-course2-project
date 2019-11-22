@@ -7,18 +7,18 @@
 // Not asked but it is written on the page that the total price will be calculated
 let totalPrice = 0;
 
-// Function taht render the total price
+// Function that render the total price
 const renderTotalPrice = function() {
-  let total = document.createElement("span");
+  const total = document.createElement("span");
   total.textContent = totalPrice.toFixed(2);
 
-  let priceInfo = document.createElement("p");
+  const priceInfo = document.createElement("p");
   priceInfo.id = "total-price";
   priceInfo.className = "text-center";
   priceInfo.appendChild(document.createTextNode("Total price: €"));
   priceInfo.appendChild(total);
   
-  let headerContainer = document.querySelector("h2").parentElement;
+  const headerContainer = document.querySelector("h2").parentElement;
   headerContainer.appendChild(priceInfo);
 };
 
@@ -49,64 +49,63 @@ const getWishlist = function() {
 const renderWishlistItem = function(item) {
   const accessory = item.accessory;
 
-  let cardTitle = document.createElement("h5");
+  const cardTitle = document.createElement("h5");
   cardTitle.className = "card-title";
   cardTitle.textContent = accessory.name;
 
-  let itemColor = document.createElement("em");
+  const itemColor = document.createElement("em");
   itemColor.textContent = accessory.color;
 
-  let cardText = document.createElement("p");
+  const cardText = document.createElement("p");
   cardText.className = "card-text";
   cardText.appendChild(document.createTextNode("Color: "));
   cardText.appendChild(itemColor);
 
-  let cardButton = document.createElement("button");
+  const cardButton = document.createElement("button");
   cardButton.className = "btn btn-outline-danger";
   cardButton.textContent = "Remove";
   cardButton.addEventListener("click", () => removeFromWishlist(item.storageKey, cardContainer, accessory.price));
   
-  let cardBody = document.createElement("div");
+  const cardBody = document.createElement("div");
   cardBody.className = "card-body text-center";
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardText);
   cardBody.appendChild(cardButton);
 
-  let cardImage = document.createElement("img");
+  const cardImage = document.createElement("img");
   cardImage.className = "card-img-top";
   cardImage.src = accessory.imageHref;
-  cardImage.alt = `Image of a ${accessory.color} ${accessory.name}`;
+  cardImage.alt = `Image of ${accessory.color} ${accessory.name}`;
 
-  let priceTag = document.createElement("div");
+  const priceTag = document.createElement("div");
   priceTag.className = "currency btn btn-light disabled";
   priceTag.textContent = accessory.price;
   // Add the price to totalPrice
   totalPrice += accessory.price;
 
-  let card = document.createElement("div");
+  const card = document.createElement("div");
   card.className = "card my-3";
   card.appendChild(priceTag);
   card.appendChild(cardImage);
   card.appendChild(cardBody);
 
-  let cardContainer = document.createElement("div");
+  const cardContainer = document.createElement("div");
   cardContainer.className = "col-sm-4";
   cardContainer.appendChild(card);
 
   // Get the HTML element that contains the products
   // And append the new product to it
-  let productsList = document.getElementById("products");
-  productsList.appendChild(cardContainer);
+  document.getElementById("products").appendChild(cardContainer);
 };
 
 // Function that render warning message to inform user about his empty wishlist
 const noWishlistFound = function() {
   // Create warning message
-  let warningMessage = document.createElement("p");
+  const warningMessage = document.createElement("p");
   warningMessage.textContent = "No saved item in your wishlist. Go on the accessories page to add some!";
   warningMessage.style.color = "red";
   // Render warning messeage
-  let productsList = document.getElementById("products");
+  const productsList = document.getElementById("products");
   productsList.appendChild(warningMessage);
   productsList.style.justifyContent = "center";
   productsList.style.padding = "3em";
