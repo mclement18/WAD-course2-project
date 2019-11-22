@@ -1,0 +1,1 @@
+I'm using Visual Code Studio not Atom. Therefore, I did not use atom-beautify but I hope code is nice enough to be read and understood.
