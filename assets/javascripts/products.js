@@ -135,11 +135,12 @@ const filterAccessoriesByColor = function() {
   }
 };
 
-// Bind highlightSelectedFilter() function to filter buttons
+// Bind highlightSelectedFilter() and filterAccessoriesByColor() function to filter buttons
 // The function is runned upon click
-document.querySelectorAll("#filters .btn").forEach(filter => {
-  filter.addEventListener("click", highlightSelectedFilter);
-  filter.addEventListener("click", filterAccessoriesByColor);
+document.getElementById("filters").addEventListener("click", e => {
+  const target = e.target;
+  highlightSelectedFilter.bind(target)();
+  filterAccessoriesByColor.bind(target)();
 });
 
 // /************************************
@@ -162,13 +163,6 @@ const loadRemoteAccessories = function() {
     });
 };
 
-// Binding loadRemoteAccessories to socks and sunglasses links
-document.querySelectorAll(".navbar .nav-link").forEach(link => {
-  if (link.textContent.toLowerCase() !== "hats") {
-    link.addEventListener("click", loadRemoteAccessories);
-  }
-});
-
 // Function to reload hats content
 const reloadHats = function() {
   // Remove all old accessories
@@ -179,8 +173,20 @@ const reloadHats = function() {
   highlightSelectedFilter.bind(document.querySelector("#filters .btn:first-child"))();
 };
 
-// Bind reloadHats function to the Hats nav link
-document.querySelector(".navbar .nav-link:first-child").addEventListener("click", reloadHats);
+// Binding loadRemoteAccessories to socks and sunglasses links and reloadHats to hats link
+document.querySelector(".navbar .navbar-nav").addEventListener("click", e => {
+  const target = e.target;
+  if (target.tagName === "BUTTON") {
+    switch (target.textContent.toLowerCase()) {
+      case "hats":
+        reloadHats();
+        break;
+      default:
+        loadRemoteAccessories.bind(target)();
+        break;
+    }
+  }
+});
 
 // /************************************
 //  * Socks and sunglasses tasks section
