@@ -125,13 +125,15 @@ const filterAccessoriesByColor = function() {
     document.querySelectorAll("#products .accessory")
       .forEach(accessory => accessory.style.display = "");
   } else {
-    // Hide all accessories
-    document.querySelectorAll("#products .accessory")
-      .forEach(accessory => accessory.style.display = "none");
-    // Select only accessories that have the filter button textContent color as class name
-    // And unhide each of them
-    document.querySelectorAll(`#products .accessory.${this.textContent.toLowerCase()}`)
-      .forEach(accessory => accessory.style.display = "");
+    // If accessory has the filter button textContent color as class name -> display it
+    // Otherwise hide it
+    document.querySelectorAll("#products .accessory").forEach(accessory => {
+      if (accessory.classList.contains(this.textContent.toLowerCase())) {
+        accessory.style.display = "";
+      } else {
+        accessory.style.display = "none"
+      }
+    });
   }
 };
 
