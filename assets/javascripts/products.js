@@ -196,16 +196,19 @@ document.querySelector(".navbar .navbar-nav").addEventListener("click", e => {
 // Function to add accessory to the wishlist
 // Save maximum 3 items
 const addToWishlist = function(accessory) {
-  if (localStorage.length > 2) {
-    alert("You reached the maximal number of items in your wishlist.");
-  } else {
-    const accessoryJSON = JSON.stringify(accessory);
-    if (!localStorage.getItem("accessory1")) {
+  const accessoryJSON = JSON.stringify(accessory);
+  switch (true) {
+    case localStorage.getItem("accessory1") === null:
       localStorage.setItem("accessory1", accessoryJSON);
-    } else if (!localStorage.getItem("accessory2")) {
+      break;
+    case localStorage.getItem("accessory2") === null:
       localStorage.setItem("accessory2", accessoryJSON);
-    } else if (!localStorage.getItem("accessory3")) {
+      break;
+    case localStorage.getItem("accessory3") === null:
       localStorage.setItem("accessory3", accessoryJSON);
-    }
+      break;
+    default:
+      alert("You reached the maximal number of items in your wishlist.");
+      break;
   }
 };

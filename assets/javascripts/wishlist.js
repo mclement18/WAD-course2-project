@@ -31,18 +31,19 @@ const updateTotalPrice = function(amountToRemove) {
 
 // Function that retrieve wishlist from localStorage
 const getWishlist = function() {
-  if (localStorage.length > 0) {
-    let wishlist = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
+  const keys = ["accessory1", "accessory2", "accessory3"];
+  let wishlist = [];
+  keys.forEach(key => {
+    const accessoryJSON = localStorage.getItem(key);
+    if (accessoryJSON !== null) {
       const item = {
         storageKey: key,
-        accessory: JSON.parse(localStorage.getItem(key))
+        accessory: JSON.parse(accessoryJSON)
       };
       wishlist.push(item);
     }
-    return wishlist;
-  }
+  });
+  return wishlist;
 };
 
 // Function that render wishlist's item (essentitally the same as the displayAccessory function)
@@ -114,7 +115,7 @@ const noWishlistFound = function() {
 // Function that display the wishlist
 const displayWishlist = function() {
   const wishlist = getWishlist();
-  if (wishlist) {
+  if (wishlist.length > 0) {
     wishlist.forEach(item => renderWishlistItem(item));
     renderTotalPrice();
   } else {
@@ -137,7 +138,7 @@ const removeFromWishlist = function(key, htmlComponent, price) {
   // If no more items in wishlist display warning message
   // And remove total price
   // Otherwise update total price
-  if (localStorage.length === 0) {
+  if (getWishlist().length === 0) {
     noWishlistFound();
     // Remove total price
     document.getElementById("total-price").remove();
