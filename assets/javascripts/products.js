@@ -141,8 +141,10 @@ const filterAccessoriesByColor = function() {
 // The function is runned upon click
 document.getElementById("filters").addEventListener("click", e => {
   const target = e.target;
-  highlightSelectedFilter.bind(target)();
-  filterAccessoriesByColor.bind(target)();
+  if (target.tagName === "BUTTON") {
+    highlightSelectedFilter.bind(target)();
+    filterAccessoriesByColor.bind(target)();
+  }
 });
 
 // /************************************
@@ -179,13 +181,10 @@ const reloadHats = function() {
 document.querySelector(".navbar .navbar-nav").addEventListener("click", e => {
   const target = e.target;
   if (target.tagName === "BUTTON") {
-    switch (target.textContent.toLowerCase()) {
-      case "hats":
-        reloadHats();
-        break;
-      default:
-        loadRemoteAccessories.bind(target)();
-        break;
+    if (target.textContent.toLowerCase() === "hats") {
+      reloadHats();
+    } else {
+      loadRemoteAccessories.bind(target)();
     }
   }
 });
